@@ -4,7 +4,7 @@ if not instance_exists(camera_target) exit;
 
 camera_set_view_size(view, view_width, view_height);
 
-var _spd = 0.70;
+var _spd = 0.32;
 
 var buffer_distance = 100; // The distance from the edge of the room where the sink into border effect begins.
 var max_sink = 0.60; // The maximum value of the sink into border effect.
@@ -18,6 +18,9 @@ if (instance_exists(camera_target))
 	
     _x = (camera_target.x - view_width / 2) + _x;
     _y = (camera_target.y - view_height / 2) + _y;
+	
+	_x += camera_target.xvel*3;
+	_y += camera_target.yvel*3;
 	
     _x += random_range(-screen_shake, screen_shake);
     _y += random_range(-screen_shake, screen_shake);

@@ -5,10 +5,10 @@ var SpeedNormal = 0.12;
 
 var SpeedDiagonal = SpeedNormal * 0.707;
 
-var left = keyboard_check(vk_left);
-var right = keyboard_check(vk_right);
-var up = keyboard_check(vk_up);
-var down = keyboard_check(vk_down);
+var _left = keyboard_check(vk_left);
+var _right = keyboard_check(vk_right);
+var _up = keyboard_check(vk_up);
+var _down = keyboard_check(vk_down);
 
 var space = keyboard_check(vk_space);
 
@@ -96,8 +96,8 @@ else
 }
 z += zvel;
 
-var hor = (right - left);
-var vertical = (down - up);
+var hor = (_right - _left);
+var vertical = (_down - _up);
 
 if (movelock_time > 0)
 {
@@ -119,35 +119,27 @@ if (sprite_index == sSable || sprite_index == sSable_behind)
 	if ((_current_frame == 3 || _current_frame == 1) && !footstepcreated)
 	{
 		footstepcreated = true;
-		var _footstepoffsetx = 0;
-		var _footstepoffsety = 0;
+		var _footoffsetx = 0;
+		var _footoffsety = 0;
 		
 		if vertical != 0
-			_footstepoffsetx = (_current_frame-2)*2;
-		
+			_footoffsetx = (_current_frame-2)*2;
 		if hor != 0
-			_footstepoffsety = (_current_frame-2)*1;
+			_footoffsety = (_current_frame-2)*2;
 			
-		if (_current_frame == 3)
+		audio_play_sound(choose(CloudStep1, CloudStep2, CloudStep3), 1, 0, 0.3+random(0.1), 0, 0.9 + (_current_frame-1)/10 + random(0.1))
+
 		{
-			audio_play_sound(choose(DirtStep1, DirtStep2, DirtStep3), 1, 0, 0.3+random(0.1), 0, 1.0+random(0.1))
-		}
-		else
-		{
-			audio_play_sound(choose(DirtStep1, DirtStep2, DirtStep3), 1, 0, 0.3+random(0.1), 0, 1.15+random(0.1))
-		}
-		
-		{
-			var _p = instance_create_depth(x+_footstepoffsetx,y+6+_footstepoffsety,0,obj_Particle);
+			var _p = instance_create_depth(x+_footoffsetx,y+6+_footoffsety,0,obj_Particle);
 			_p.sprite_index = spr_snow_dust;
-			_p.image_speed = 0.25;
-			_p.image_xscale = 1	;
+			_p.image_speed = 0.125;
+			_p.image_xscale = 1;
 			_p.image_yscale = 1;
-			_p.xvel = random_range(-0.4, 0.4);
-			_p.yvel = random_range(-0.1, -0.4);
+			_p.xvel = random_range(-0.5, 0.5);
+			_p.yvel = random_range(-0.2, 0.2);
 		}
 		{
-			var _p = instance_create_depth(x+_footstepoffsetx,y+6+_footstepoffsety,0,obj_Particle);
+			var _p = instance_create_depth(x+_footoffsetx,y+6+_footoffsety,0,obj_Particle);
 			_p.sprite_index = sFootstep;
 			_p.image_speed = 0;
 			_p.image_xscale = 1;
@@ -171,29 +163,29 @@ switch (characterstate)
 
 		if (hor != 0 || vertical != 0)
 		{
-			if (left || right)
+			if (_left || _right)
 			{
 				bothx = false;
-				if !(left && right) /// prevent both at same time
+				if !(_left && _right) /// prevent both at same time
 				{
-					lastdirx = left - right;
+					lastdirx = _left - _right;
 				}
 				else
 				{
 					bothx = true;
 				}
 				
-				if (!down)
+				if (!_down)
 				{
 					lastdiry = -1;
 				}
 			}
-			if (up || down)
+			if (_up || _down)
 			{
 				bothy = false;
-				if !(up && down) /// prevent both at same time
+				if !(_up && _down) /// prevent both at same time
 				{
-					lastdiry = up - down;
+					lastdiry = _up - _down;
 				}
 				else
 				{

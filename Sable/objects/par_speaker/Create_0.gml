@@ -2,7 +2,8 @@
 //-----------Customise (FOR USER)
 playerobject = Player;
 interact_key = ord("E");
-detection_radius = 24;
+detection_radius = 25;
+exit_radius = 40;
 
 myVoice			= snd_voice1;
 myPortrait		= -1;
