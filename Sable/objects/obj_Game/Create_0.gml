@@ -7,7 +7,7 @@ window_set_fullscreen(true);
 freezetime = 0;
 gametime = 0;
 
-area_gravity = 0.05;
+area_gravity = 0.03;
 
 // Set up the grid
 width_ = room_width div CELL_WIDTH;
@@ -51,4 +51,5 @@ for (var _y = 0; _y < height_; _y++) {
 	}
 	
 }
-audio_play_sound(choose(ActionCalling_v2, battle__1_, bells, donkey__1_, ending, important, optimistic__2_, unfinished, Cave, CasinoEncounter, battle_variation2), 1, 1, 0.7);
+alarm[0] = 400;
+

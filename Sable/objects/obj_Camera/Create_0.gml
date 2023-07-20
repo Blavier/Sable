@@ -1,6 +1,6 @@
 // 640 by 360, 16:9
 
-// Test change
+#macro view view_camera[0]
 
 view_width = 1920/4;
 view_height = 1080/4;
@@ -22,3 +22,6 @@ window_set_size(view_width * window_scale, view_height * window_scale);
 alarm[0] = 1;
 
 surface_resize(application_surface, view_width * window_scale, view_height * window_scale);
+
+//if (instance_exists(camera_target))
+//	camera_set_view_pos(view, camera_target.x - view_width / 2, camera_target.y - view_height / 2);

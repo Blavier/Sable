@@ -1,3 +1,6 @@
-audio_play_sound(snd_coin,5,false,0.4,0,1);
+if (floor(other.z) == floor(z))
+{
+	audio_play_sound(snd_coin,5,false,0.4,0,1);
 
-instance_destroy(id);
+	instance_destroy(id);
+}

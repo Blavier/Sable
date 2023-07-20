@@ -8,10 +8,10 @@ else
 	// Physics
 	
 	// Magnet to player
-	if (distance_to_object(Player) < 30)
+	if (distance_to_object(Player) < 32)
 	{
-		xvel += lengthdir_x(0.2, point_direction(x,y,Player.x,Player.y))
-		yvel += lengthdir_y(0.2, point_direction(x,y,Player.x,Player.y))
+		xvel += lengthdir_x(0.15, point_direction(x,y,Player.x,Player.y))
+		yvel += lengthdir_y(0.15, point_direction(x,y,Player.x,Player.y))
 	}
 	
 	// Slowing forces

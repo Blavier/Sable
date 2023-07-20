@@ -33,8 +33,8 @@
   "properties": [],
   "solid": false,
   "spriteId": {
-    "name": "sSable_behind",
-    "path": "sprites/sSable_behind/sSable_behind.yy",
+    "name": "sSable",
+    "path": "sprites/sSable/sSable.yy",
   },
   "spriteMaskId": null,
   "visible": true,

@@ -10,6 +10,19 @@ lastdiry = 0;
 bothx = 0;
 bothy = 0;
 
+
+anim = anim_idle;
+old_anim = anim_idle;
+anim_tick = 0; // every tick of animation
+anim_frame = 0; // useful when the animation has no speed
+anim_current_frame = 0; // frame in the scope of the current anim
+
+image_speed = 0;
+image_index = 0;
+
+_data = "0";
+_type = "Dirt";
+
 footstepcreated = false;
 movelock_time = 0;
 hitflash_time = 0;

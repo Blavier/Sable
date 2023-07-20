@@ -1,5 +1,5 @@
 //Draw textbox
-draw_sprite_ext(dialogue_box, 0, pos_x, pos_y, 2, 2, 0, c_white, 1);
+draw_sprite_ext(dialogue_box, 0, pos_x, pos_y, 3, 3, 0, c_white, 1);
 
 #region Draw name and namebox
 var cname = name[page]

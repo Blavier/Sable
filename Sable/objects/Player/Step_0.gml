@@ -78,10 +78,7 @@ if (jump_time > 0)
 {
 	jump_time--;
 	if z <= 0 && onground {
-		zvel = 1.80;
-		
-		xvel *= 1.15;
-		yvel *= 1.15;
+		zvel = 1.30;
 
 		audio_play_sound(jump,1,false,0.3,0,1);
 		
@@ -114,21 +111,100 @@ if (hor != 0 && vertical != 0) {
 	yvel += vertical * SpeedNormal;
 }
 
-if (sprite_index == sSable || sprite_index == sSable_behind)
+var _anim_index = sSable;
+var _start_frame = 0;
+var _anim_length = 0;
+var _anim_speed = 0;
+
+switch (anim)
 {
-	var _current_frame = floor(image_index);
-	if ((_current_frame == 3 || _current_frame == 1) && !footstepcreated && onground && z <= 0)
+	// front facing
+	case anim_idle:
+		_start_frame	= 0;
+		_anim_length	= 2;
+		_anim_speed		= 40;
+	break;
+		
+	case anim_run:
+		_start_frame	= 2;
+		_anim_length	= 4;
+		_anim_speed		= 15;
+	break;
+	
+	case anim_jump:
+		_start_frame	= 6;
+		_anim_length	= 0;
+		_anim_speed		= 0;
+	break;
+	
+	// back facing
+	case anim_idle_back:
+		_start_frame	= 9;
+		_anim_length	= 2;
+		_anim_speed		= 40;
+	break;
+	
+	case anim_run_back:
+		_start_frame	= 11;
+		_anim_length	= 4;
+		_anim_speed		= 15;
+	break;
+	
+	case anim_jump_back:
+		_start_frame	= 15;
+		_anim_length	= 0;
+		_anim_speed		= 0;
+	break;
+}
+
+anim_current_frame = floor(anim_tick / _anim_speed);
+
+if (anim == anim_run || anim == anim_run_back)
+{
+	var _current_frame = image_index;
+	if ((anim_current_frame == 3 || anim_current_frame == 1) && !footstepcreated && onground && z <= 0)
 	{
 		footstepcreated = true;
 		var _footoffsetx = 0;
 		var _footoffsety = 0;
 		
 		if vertical != 0
-			_footoffsetx = (_current_frame-2)*2;
+			_footoffsetx = (anim_current_frame-2)*-2;
 		if hor != 0
-			_footoffsety = (_current_frame-2)*2;
+			_footoffsety = (anim_current_frame-2)*-2;
 			
-		audio_play_sound(choose(CloudStep1, CloudStep2, CloudStep3), 1, 0, 0.3+random(0.1), 0, 0.9 + (_current_frame-1)/10 + random(0.1))
+		var _tilemap_id = layer_tilemap_get_id(layer_get_id("Tiles_ground"));
+		_data = tilemap_get_at_pixel(_tilemap_id, x, y);
+
+		show_debug_message("x: " + string(x));
+		show_debug_message("y: " + string(y));
+		show_debug_message("_data: " + string(_data));
+		show_debug_message("_tilemap_id: " + string(_tilemap_id));
+
+		// Assuming your tile indices start from 1
+		if (_data != 0) {
+		    _data -= 1; // Adjust for 0-based indexing in the rest of your code
+		    if (_data < 42)
+			{
+		        _type = "Cloud";
+				audio_play_sound(choose(CloudStep1, CloudStep2, CloudStep3), 1, 0, 0.3+random(0.1), 0, 0.9 + (anim_current_frame-1)/10 + random(0.1));
+			}
+		    else if (_data < 84)
+			{
+		        _type = "Dirt";
+				audio_play_sound(choose(DirtStep1, DirtStep2, DirtStep3), 1, 0, 0.3+random(0.1), 0, 0.9 + (anim_current_frame-1)/10 + random(0.1));
+			}
+		    else if (_data < 126)
+			{
+		        _type = "Gravel";
+				audio_play_sound(choose(GravelStep1, GravelStep2, GravelStep3), 1, 0, 0.3+random(0.1), 0, 0.9 + (anim_current_frame-1)/10 + random(0.1));
+			}
+		    else if (_data < 168)
+			{
+		        _type = "Stone";
+				audio_play_sound(choose(StoneStep1, StoneStep2, StoneStep3), 1, 0, 0.3+random(0.1), 0, 0.9 + (anim_current_frame-1)/10 + random(0.1));
+			}
+		}
 
 		{
 			var _p = instance_create_depth(x+_footoffsetx,y+6+_footoffsety,0,obj_Particle);
@@ -151,7 +227,7 @@ if (sprite_index == sSable || sprite_index == sSable_behind)
 		}
 	}
 	
-	if (_current_frame == 2 || _current_frame == 0)
+	if (anim_current_frame == 2 || anim_current_frame == 0)
 	{
 		footstepcreated = false;
 	}
@@ -162,82 +238,74 @@ switch (characterstate)
 	case 0: 
 		image_xscale = -lastdirx;
 
-		if (hor != 0 || vertical != 0)
+		if (jumpingstate) 
 		{
-			if (_left || _right)
-			{
-				bothx = false;
-				if !(_left && _right) /// prevent both at same time
-				{
-					lastdirx = _left - _right;
-				}
-				else
-				{
-					bothx = true;
-				}
-				
-				if (!_down)
-				{
-					lastdiry = -1;
-				}
-			}
-			if (_up || _down)
-			{
-				bothy = false;
-				if !(_up && _down) /// prevent both at same time
-				{
-					lastdiry = _up - _down;
-				}
-				else
-				{
-					bothy = true;
-				}
-				
-			}
-		
-			if (lastdiry == 1)
-			{
-				sprite_index = sSable_behind;
-			}
-			else {
-				sprite_index = sSable;
+			if (lastdiry == 1) {
+				anim = anim_jump_back;
+			} else {
+				anim = anim_jump;
 			}
 			
-			image_speed = 0.3;	
+			if (zvel > 0) {
+				anim_frame = 0;
+			}
+			else {
+				anim_frame = 1;
+			}
 		}
 		else
 		{
-			if (lastdiry == 1)
+			if (hor != 0 || vertical != 0)
 			{
-				sprite_index = sSable_stand;
-				if (obj_Game.gametime % 60 > 30)
+				if (_left || _right)
 				{
-					image_index = 2;
+					bothx = false;
+					if !(_left && _right) /// prevent both at same time
+					{
+						lastdirx = _left - _right;
+					}
+					else
+					{
+						bothx = true;
+					}
+				
+					if (!_down)
+					{
+						lastdiry = -1;
+					}
 				}
-				else
+				if (_up || _down)
 				{
-					image_index = 3;
+					bothy = false;
+					if !(_up && _down) /// prevent both at same time
+					{
+						lastdiry = _up - _down;
+					}
+					else
+					{
+						bothy = true;
+					}
+				}
+		
+				if (lastdiry == 1)
+				{
+					anim = anim_run_back;
+				}
+				else {
+					anim = anim_run;
 				}
 			}
-			else {
-				sprite_index = sSable_stand;
-				if (obj_Game.gametime % 60 > 30)
+			else
+			{
+				if (lastdiry == 1)
 				{
-					image_index = 0;
+					anim = anim_idle_back;
 				}
-				else
-				{
-					image_index = 1;
+				else {
+					anim = anim_idle;
 				}
 			}
-			
-			image_speed = 0;	
-		}	
-	break;
-
-	case 1: // etc
-		sprite_index = sSable;
-		image_speed = 1;	
+		}
 	break;
 }
 
@@ -297,3 +365,26 @@ if (hitpoints < 0)
 
 if (hitflash_time > 0) hitflash_time --;
 if (movelock_time > 0) movelock_time --;
+
+
+if (anim != old_anim)
+{
+	anim_frame = 0;
+	anim_tick = 0;
+	old_anim = anim;
+}
+
+sprite_index = _anim_index;
+if (_anim_speed > 0)
+{
+	image_index = _start_frame + floor(anim_tick / _anim_speed);
+}
+else
+{
+	image_index = _start_frame + anim_frame;
+}
+
+if (image_index > _start_frame + _anim_length - 1)
+	anim_tick = 0;
+
+anim_tick ++;
