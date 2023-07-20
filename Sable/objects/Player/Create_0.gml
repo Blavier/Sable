@@ -21,7 +21,7 @@ image_speed = 0;
 image_index = 0;
 
 _data = "0";
-_type = "Dirt";
+_type = "Void";
 
 footstepcreated = false;
 movelock_time = 0;

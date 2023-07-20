@@ -1,10 +1,10 @@
 {
   "resourceType": "GMSprite",
   "resourceVersion": "1.0",
-  "name": "spr_snow_dust",
+  "name": "spr_stone_step",
   "bbox_bottom": 5,
   "bbox_left": 0,
-  "bbox_right": 7,
+  "bbox_right": 6,
   "bbox_top": 2,
   "bboxMode": 0,
   "collisionKind": 1,
@@ -14,7 +14,8 @@
   "For3D": false,
   "frames": [
     {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"ce66a330-3dbf-4c3a-8350-ab4ca88db093",},
-    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"c9a51a0e-01a7-4293-bdb9-08fb53c7dbe3",},
+    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"85dff76d-fe69-4802-8451-2b2e127c820d",},
+    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"e3aee647-8698-4ecf-98ac-315117dcddec",},
   ],
   "gridX": 0,
   "gridY": 0,
@@ -33,7 +34,7 @@
   "sequence": {
     "resourceType": "GMSequence",
     "resourceVersion": "1.4",
-    "name": "spr_snow_dust",
+    "name": "spr_stone_step",
     "autoRecord": true,
     "backdropHeight": 768,
     "backdropImageOpacity": 0.5,
@@ -44,7 +45,7 @@
     "events": {"resourceType":"KeyframeStore<MessageEventKeyframe>","resourceVersion":"1.0","Keyframes":[],},
     "eventStubScript": null,
     "eventToFunction": {},
-    "length": 2.0,
+    "length": 3.0,
     "lockOrigin": false,
     "moments": {"resourceType":"KeyframeStore<MomentsEventKeyframe>","resourceVersion":"1.0","Keyframes":[],},
     "playback": 1,
@@ -55,8 +56,9 @@
     "timeUnits": 1,
     "tracks": [
       {"resourceType":"GMSpriteFramesTrack","resourceVersion":"1.0","name":"frames","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"1.0","Keyframes":[
-            {"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"1.0","Channels":{"0":{"resourceType":"SpriteFrameKeyframe","resourceVersion":"1.0","Id":{"name":"ce66a330-3dbf-4c3a-8350-ab4ca88db093","path":"sprites/spr_snow_dust/spr_snow_dust.yy",},},},"Disabled":false,"id":"da89264a-5d78-49e1-a45d-46774ee11293","IsCreationKey":false,"Key":0.0,"Length":1.0,"Stretch":false,},
-            {"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"1.0","Channels":{"0":{"resourceType":"SpriteFrameKeyframe","resourceVersion":"1.0","Id":{"name":"c9a51a0e-01a7-4293-bdb9-08fb53c7dbe3","path":"sprites/spr_snow_dust/spr_snow_dust.yy",},},},"Disabled":false,"id":"49aa7050-a0e7-4997-a68f-21af3d394faa","IsCreationKey":false,"Key":1.0,"Length":1.0,"Stretch":false,},
+            {"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"1.0","Channels":{"0":{"resourceType":"SpriteFrameKeyframe","resourceVersion":"1.0","Id":{"name":"ce66a330-3dbf-4c3a-8350-ab4ca88db093","path":"sprites/spr_stone_step/spr_stone_step.yy",},},},"Disabled":false,"id":"2e98f71b-29c4-4ec2-ad47-055f186be18d","IsCreationKey":false,"Key":0.0,"Length":1.0,"Stretch":false,},
+            {"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"1.0","Channels":{"0":{"resourceType":"SpriteFrameKeyframe","resourceVersion":"1.0","Id":{"name":"85dff76d-fe69-4802-8451-2b2e127c820d","path":"sprites/spr_stone_step/spr_stone_step.yy",},},},"Disabled":false,"id":"2cde170a-0716-42bc-92a2-0406d9116222","IsCreationKey":false,"Key":1.0,"Length":1.0,"Stretch":false,},
+            {"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"1.0","Channels":{"0":{"resourceType":"SpriteFrameKeyframe","resourceVersion":"1.0","Id":{"name":"e3aee647-8698-4ecf-98ac-315117dcddec","path":"sprites/spr_stone_step/spr_stone_step.yy",},},},"Disabled":false,"id":"33cf14ac-b94c-4aca-a291-97de50d8de12","IsCreationKey":false,"Key":2.0,"Length":1.0,"Stretch":false,},
           ],},"modifiers":[],"spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
     "visibleRange": null,

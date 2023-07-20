@@ -30,7 +30,6 @@ else
 			{
 				audio_play_sound(land,1,false,0.3,0,1);
 
-
 				{
 					var _p = instance_create_depth(x+2,y+6,0,obj_Particle);
 					_p.sprite_index = sFootstep;
@@ -85,7 +84,7 @@ if (jump_time > 0)
 		jumpingstate = 1;
 	
 		var _p = instance_create_depth(x,y+6,0,obj_Particle);
-		_p.sprite_index = spr_snow_dust;
+		_p.sprite_index = spr_cloud_step;
 		_p.image_speed = 0.5;
 		_p.xvel = random_range(-0.4, 0.4);
 		_p.yvel = random_range(-0.1, -0.4);
@@ -174,7 +173,8 @@ if (anim == anim_run || anim == anim_run_back)
 			_footoffsety = (anim_current_frame-2)*-2;
 			
 		var _tilemap_id = layer_tilemap_get_id(layer_get_id("Tiles_ground"));
-		_data = tilemap_get_at_pixel(_tilemap_id, x, y);
+		var _data = tilemap_get_at_pixel(_tilemap_id, x, y);
+		var _type = "Void";
 
 		show_debug_message("x: " + string(x));
 		show_debug_message("y: " + string(y));
@@ -208,7 +208,24 @@ if (anim == anim_run || anim == anim_run_back)
 
 		{
 			var _p = instance_create_depth(x+_footoffsetx,y+6+_footoffsety,0,obj_Particle);
-			_p.sprite_index = spr_snow_dust;
+			
+			switch _type {
+				case "Cloud":
+					_p.sprite_index = spr_cloud_step;
+					break;
+				case "Dirt":
+					_p.sprite_index = spr_dirt_step;
+					break;
+				case "Gravel":
+					_p.sprite_index = spr_stone_step;
+					break;
+				case "Stone":
+					_p.sprite_index = spr_stone_step;
+					break;
+				default:
+					_p.sprite_index = spr_stone_step;
+					break;
+			}
 			_p.image_speed = 0.125;
 			_p.image_xscale = 1;
 			_p.image_yscale = 1;

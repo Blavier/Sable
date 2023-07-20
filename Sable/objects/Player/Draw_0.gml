@@ -25,7 +25,7 @@ shader_reset();
 
 draw_set_color(c_black);
 
-draw_text(x + 50, y + 20, _type);
+//draw_text(x + 50, y + 20, _type);
 
 //draw_sprite_ext(sPlayerArm, guntype, x, y+3-zlevel, 1, 1, point_direction(x,y-zlevel,mouse_x,mouse_y), c_white, 1);
 
