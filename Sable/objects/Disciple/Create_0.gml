@@ -29,7 +29,7 @@ myPortraitTalk_x	= 26;
 myPortraitTalk_y	= 44;
 myPortraitIdle		= spr_portrait_examplechar_idle;
 
-myVoice				= snd_disciple_voice;
+myVoice				= snd_acolight_voice;
 myName				= "Acolight";
 
 //-------OTHER

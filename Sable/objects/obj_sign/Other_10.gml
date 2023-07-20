@@ -2,7 +2,7 @@
 reset_dialogue_defaults();
 
 var i = 0;
-myText[i]		= "Weather update...";
+myText[i]		= "Weather update:";
 mySpeaker[i]	= id;
 		
 i++;

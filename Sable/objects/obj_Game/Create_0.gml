@@ -1,6 +1,6 @@
 randomize();
 
-//window_set_fullscreen(true);
+window_set_fullscreen(true);
 
 //show_debug_overlay(true);
 
@@ -51,4 +51,4 @@ for (var _y = 0; _y < height_; _y++) {
 	}
 	
 }
-//audio_play_sound(choose(ActionCalling_v2, battle__1_, bells, donkey__1_, ending, important, optimistic__2_, unfinished, Cave, CasinoEncounter, battle_variation2), 1, 1, 0.7);
+audio_play_sound(choose(ActionCalling_v2, battle__1_, bells, donkey__1_, ending, important, optimistic__2_, unfinished, Cave, CasinoEncounter, battle_variation2), 1, 1, 0.7);

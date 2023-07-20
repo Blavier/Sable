@@ -14,29 +14,6 @@ var space = keyboard_check(vk_space);
 
 var onground = obj_Game.grid_floor[# Player.x div CELL_WIDTH, Player.y div CELL_HEIGHT] == FLOOR;
 
-if (space) jump_time = 10;
-
-if (jump_time > 0)
-{
-	jump_time--;
-	if z <= 0 && onground {
-		zvel = 1.80;
-		
-		xvel *= 1.15;
-		yvel *= 1.15;
-
-		audio_play_sound(jump,1,false,0.3,0,1);
-		
-		jumpingstate = 1;
-	
-		var _p = instance_create_depth(x,y+6,0,obj_Particle);
-		_p.sprite_index = spr_snow_dust;
-		_p.image_speed = 0.5;
-		_p.xvel = random_range(-0.4, 0.4);
-		_p.yvel = random_range(-0.1, -0.4);
-	}
-}
-
 if (z > 0)
 {
 	// Fall to ground
@@ -94,6 +71,30 @@ else
 		if z < -200 room_restart();
 	}
 }
+
+if (space) jump_time = 10;
+
+if (jump_time > 0)
+{
+	jump_time--;
+	if z <= 0 && onground {
+		zvel = 1.80;
+		
+		xvel *= 1.15;
+		yvel *= 1.15;
+
+		audio_play_sound(jump,1,false,0.3,0,1);
+		
+		jumpingstate = 1;
+	
+		var _p = instance_create_depth(x,y+6,0,obj_Particle);
+		_p.sprite_index = spr_snow_dust;
+		_p.image_speed = 0.5;
+		_p.xvel = random_range(-0.4, 0.4);
+		_p.yvel = random_range(-0.1, -0.4);
+	}
+}
+
 z += zvel;
 
 var hor = (_right - _left);
@@ -116,7 +117,7 @@ if (hor != 0 && vertical != 0) {
 if (sprite_index == sSable || sprite_index == sSable_behind)
 {
 	var _current_frame = floor(image_index);
-	if ((_current_frame == 3 || _current_frame == 1) && !footstepcreated)
+	if ((_current_frame == 3 || _current_frame == 1) && !footstepcreated && onground && z <= 0)
 	{
 		footstepcreated = true;
 		var _footoffsetx = 0;

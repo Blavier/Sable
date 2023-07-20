@@ -2,8 +2,7 @@ depth = -y;
 
 var _onground = obj_Game.grid_floor[# Player.x div CELL_WIDTH, Player.y div CELL_HEIGHT] == FLOOR;
 
-// Define the squash and stretch factor
-var _squash_factor = 0.05; // Adjust this value to control the intensity of squash and stretch
+var _squash_factor = 0.05;
 
 // Calculate the image scale based on zvel
 var _image_yscale = 1 + (abs(zvel) * _squash_factor);
