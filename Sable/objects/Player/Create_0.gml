@@ -23,7 +23,10 @@ image_index = 0;
 _data = "0";
 _type = "Void";
 
+stopsoundplayed = false;
+landsoundplayed = false;
 footstepcreated = false;
+
 movelock_time = 0;
 hitflash_time = 0;
 jump_time = 0;

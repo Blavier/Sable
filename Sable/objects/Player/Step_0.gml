@@ -10,25 +10,49 @@ var _right = keyboard_check(vk_right);
 var _up = keyboard_check(vk_up);
 var _down = keyboard_check(vk_down);
 
-var space = keyboard_check(vk_space);
+var space = keyboard_check_pressed(vk_space);
 
 var onground = obj_Game.grid_floor[# Player.x div CELL_WIDTH, Player.y div CELL_HEIGHT] == FLOOR;
+
+
+var _tilemap_id = layer_tilemap_get_id(layer_get_id("Tiles_ground"));
+var _data = tilemap_get_at_pixel(_tilemap_id, x, y);
+var _type = "Stone";
+
+if (_data != 0) {
+	if (_data < 42) {
+		_type = "Cloud";
+	} else if (_data < 84) {
+		_type = "Dirt";
+	} else if (_data < 126) {
+		_type = "Gravel";
+	} else if (_data < 168) {
+		_type = "Stone";
+	}
+}
+
 
 if (z > 0)
 {
 	// Fall to ground
-	zvel -= obj_Game.area_gravity;	
+	zvel -= obj_Game.area_gravity;
+
+	landsoundplayed = false;
 }
 else
 {
 	// On ground
 	if (onground)
 	{
-		if (z <= 0)
+		if (zvel < -0.05)
 		{
-			if (zvel < -0.05)
+			if (!landsoundplayed)
 			{
-				audio_play_sound(land,1,false,0.3,0,1);
+				landsoundplayed = true;
+				
+				audio_play_sound(asset_get_index(_type + "StepStop"),
+								1, 0, 0.4+random(0.1), 0, 0.9 + random(0.1));
+
 
 				{
 					var _p = instance_create_depth(x+2,y+6,0,obj_Particle);
@@ -57,21 +81,20 @@ else
 				}
 			
 				landing_time = 14;
-			
 			}
-			zvel = 0;
-			z = 0;
 		}
+		zvel = 0;
+		z = 0;
 	}
 	else
 	{
 		zvel -= obj_Game.area_gravity;	
 		
-		if z < -200 room_restart();
+		if z < -600 room_restart();
 	}
 }
 
-if (space) jump_time = 10;
+if (space) jump_time = 14;
 
 if (jump_time > 0)
 {
@@ -172,39 +195,10 @@ if (anim == anim_run || anim == anim_run_back)
 		if hor != 0
 			_footoffsety = (anim_current_frame-2)*-2;
 			
-		var _tilemap_id = layer_tilemap_get_id(layer_get_id("Tiles_ground"));
-		var _data = tilemap_get_at_pixel(_tilemap_id, x, y);
-		var _type = "Void";
-
-		show_debug_message("x: " + string(x));
-		show_debug_message("y: " + string(y));
-		show_debug_message("_data: " + string(_data));
-		show_debug_message("_tilemap_id: " + string(_tilemap_id));
-
-		// Assuming your tile indices start from 1
-		if (_data != 0) {
-		    _data -= 1; // Adjust for 0-based indexing in the rest of your code
-		    if (_data < 42)
-			{
-		        _type = "Cloud";
-				audio_play_sound(choose(CloudStep1, CloudStep2, CloudStep3), 1, 0, 0.3+random(0.1), 0, 0.9 + (anim_current_frame-1)/10 + random(0.1));
-			}
-		    else if (_data < 84)
-			{
-		        _type = "Dirt";
-				audio_play_sound(choose(DirtStep1, DirtStep2, DirtStep3), 1, 0, 0.3+random(0.1), 0, 0.9 + (anim_current_frame-1)/10 + random(0.1));
-			}
-		    else if (_data < 126)
-			{
-		        _type = "Gravel";
-				audio_play_sound(choose(GravelStep1, GravelStep2, GravelStep3), 1, 0, 0.3+random(0.1), 0, 0.9 + (anim_current_frame-1)/10 + random(0.1));
-			}
-		    else if (_data < 168)
-			{
-		        _type = "Stone";
-				audio_play_sound(choose(StoneStep1, StoneStep2, StoneStep3), 1, 0, 0.3+random(0.1), 0, 0.9 + (anim_current_frame-1)/10 + random(0.1));
-			}
-		}
+		audio_play_sound(choose(asset_get_index(_type + "Step1"),
+								asset_get_index(_type + "Step2"),
+								asset_get_index(_type + "Step3")),
+								1, 0, 0.3+random(0.1), 0, 0.9 + (anim_current_frame-1)/10 + random(0.1));
 
 		{
 			var _p = instance_create_depth(x+_footoffsetx,y+6+_footoffsety,0,obj_Particle);
@@ -247,6 +241,43 @@ if (anim == anim_run || anim == anim_run_back)
 	if (anim_current_frame == 2 || anim_current_frame == 0)
 	{
 		footstepcreated = false;
+	}
+}
+
+if (abs(xvel) > 0 || abs(yvel) > 0)
+{
+	if (0.05 > abs(xvel) || 0.05 > abs(yvel))
+	{
+		if (hor == 0 && vertical == 0 && z <= 0)
+		{
+			if (!stopsoundplayed)
+			{
+				stopsoundplayed = true;
+			
+				audio_play_sound(asset_get_index(_type + "StepStop"),
+									1, 0, 0.4+random(0.1), 0, 0.9 + random(0.1));
+				{
+					var _p = instance_create_depth(x+3,y+6,0,obj_Particle);
+					_p.sprite_index = sFootstep;
+					_p.image_speed = 0;
+					_p.xvel = 0;
+					_p.yvel = 0;
+					_p.image_angle = point_direction(xprevious,yprevious,x,y);
+				}
+				{
+					var _p = instance_create_depth(x-1,y+6,0,obj_Particle);
+					_p.sprite_index = sFootstep;
+					_p.image_speed = 0;
+					_p.xvel = 0;
+					_p.yvel = 0;
+					_p.image_angle = point_direction(xprevious,yprevious,x,y);
+				}
+			}
+		}
+		else
+		{
+			stopsoundplayed = false;
+		}
 	}
 }
 
@@ -329,7 +360,7 @@ switch (characterstate)
 
 var _collidewithgrid = obj_Game.grid;
 
-xvel *= 0.88;
+xvel *= 0.86; //0.86
 x += xvel;
 
 if (xvel > 0) {
@@ -347,7 +378,7 @@ else if (xvel < 0) {
 	}
 }
 
-yvel *= 0.88;
+yvel *= 0.86;
 y += lerp(yvel, (window_get_height() / window_get_width()) * yvel, 0.25);
 
 if yvel > 0 {
