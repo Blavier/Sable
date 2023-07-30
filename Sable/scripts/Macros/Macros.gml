@@ -14,6 +14,9 @@ function create_macros() {
 #macro anim_run_back 5
 #macro anim_jump_back 6
 
+#macro anim_atk 7
+#macro anim_atk_back 8
+
 #macro G global 
 #macro O other
 

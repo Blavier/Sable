@@ -157,42 +157,12 @@ switch (characterstate)
 }
 
 
-var _collidewithgrid = obj_Game.grid;
-
 xvel *= 0.88;
 x += xvel;
-
-if (xvel > 0) {
-	if (grid_place_meeting(id, _collidewithgrid)) {
-		x = bbox_right&~(CELL_WIDTH+0);
-		x -= bbox_right-x+1;
-		xvel = 0;
-	}
-}
-else if (xvel < 0) {
-	if (grid_place_meeting(id, _collidewithgrid)) {
-		x = bbox_left&~(CELL_WIDTH-1);
-		x += CELL_WIDTH+x-bbox_left;
-		xvel = 0;
-	}
-}
 
 yvel *= 0.88;
 y += yvel;
 
-if yvel > 0 {
-	if (grid_place_meeting(id, _collidewithgrid)) {
-		y = bbox_bottom&~(CELL_HEIGHT+0);
-		y -= bbox_bottom-y+1;
-		yvel = 0;
-	}
-} else if yvel < 0 {
-	if (grid_place_meeting(id, _collidewithgrid)) {
-		y = bbox_top&~(CELL_HEIGHT-1);
-		y += CELL_HEIGHT+y-bbox_top;
-		yvel = 0;
-	}
-}
 
 if (hitflash_time > 0) hitflash_time --;
 if (movelock_time > 0) movelock_time --;

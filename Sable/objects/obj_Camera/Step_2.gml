@@ -14,10 +14,10 @@ if (instance_exists(camera_target))
     var _x = (camera_target.x - view_width / 2);
     var _y = (camera_target.y - view_height / 2);
 	
-	_x += camera_target.xvel*3;
-	_y += camera_target.yvel*3;
+	_x += camera_target.xvel*4;
+	_y += camera_target.yvel*4;
 	
-	_y -= camera_target.z/1.25;
+	_y -= camera_target.z/2;///1.25;
 	
     _x += random_range(-screen_shake, screen_shake);
     _y += random_range(-screen_shake, screen_shake);

@@ -8,7 +8,7 @@
   },
   "bitDepth": 1,
   "bitRate": 192,
-  "compression": 3,
+  "compression": 1,
   "conversionMode": 0,
   "duration": 57.652187,
   "parent": {

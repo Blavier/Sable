@@ -74,12 +74,12 @@ function process_menu(_select, _hmove, _mouse) {
 			case PLAY:
 				switch(index) {
 					case 1:
-						room_goto(Room1);
+						room_goto(Clouds);
 						audio_stop_all();
 						isbutton = true;
 					break;
 					case 2:
-						room_goto(Room1);
+						room_goto(Clouds);
 						audio_stop_all();
 						isbutton = true;
 					break;

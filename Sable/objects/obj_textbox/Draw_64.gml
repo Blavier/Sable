@@ -64,17 +64,18 @@ else {
 		
 		#region Check for Pause, Voice, Animated Sprite
 		switch(ch){
-			case " ": break;
+			case " ":
+				break;
 			case ",":
 			case ".":
 				pause = true;
-				alarm[1] = 15;	//how many frames we wait if we detect a fullstop or comma
+				alarm[1] = 30;
 				break;
 			
 			case "?":
 			case "!":
 				pause = true;
-				alarm[1] = 30;	//how many frames we wait if we detect a ! or ?
+				alarm[1] = 60;
 				break;
 			default:
 				
