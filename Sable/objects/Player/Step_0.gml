@@ -640,12 +640,6 @@ switch (characterstate)
 	break;
 }
 
-
-
-
-
-
-
 if (attack_time > 0) attack_time --;
 if (hitflash_time > 0) hitflash_time --;
 if (movelock_time > 0) movelock_time --;

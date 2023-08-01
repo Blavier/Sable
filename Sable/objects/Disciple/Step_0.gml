@@ -43,7 +43,7 @@ var _right = 0;
 var _up = 0;
 var _down = 0;
 
-if !instance_exists(obj_textbox)
+if !instance_exists(obj_textbox) && !is_dead
 {
 	if (ai_x == 1 || ai_x == 2)
 	{
@@ -233,26 +233,29 @@ if (jump_time > 0)
 var _hor = (_right - _left);
 var _vertical = (_down - _up);
 
-var _speed_normal = 0.13;
-var _inair_mod = 0.3;
+var _speed_normal = 0.10;
+var _inair_mod = 0.25;
 if (_onfloor) _inair_mod = 1.0;
 var _speed_diagonal = _speed_normal * 0.707;
 
 if (attack_time <= 0 && movelock_time <= 0)
 {
-	// wait for activation
-	if (_a) {
-		audio_play_sound(snd_swoosh, 1, 0);
-		attack_time = 50;
-		characterstate = 1;
-		if !_onfloor zvel = 0.65;
+	if (!is_dead)
+	{
+		// wait for activation
+		if (_a) {
+			audio_play_sound(snd_swoosh, 1, 0);
+			attack_time = 50;
+			characterstate = 1;
+			if !_onfloor zvel = 0.65;
 		
-	}
+		}
 	
-	if (_s) {
-		attack_time = 100;
-		characterstate = 2;
-		if !_onfloor zvel = 0.65;
+		if (_s) {
+			attack_time = 100;
+			characterstate = 2;
+			if !_onfloor zvel = 0.65;
+		}
 	}
 }
 else {
@@ -675,3 +678,26 @@ if (image_index > _start_frame + _anim_length - 1)
 	anim_tick = 0;
 
 anim_tick ++;
+
+
+if (is_dead && _onfloor)
+{
+	instance_destroy(id);
+	var _numloot = 1;
+	if (random(1) < 0.35) _numloot = 3;
+	
+	repeat(_numloot)
+	{
+		var _loot = instance_create_depth(x+irandom_range(-2,2),y+irandom_range(-2,2),0,obj_coin);
+		_loot.z = clamp(z, 1, 999);
+	}
+}
+
+if (hitpoints <= 0 && is_dead != 1)
+{
+	is_dead = 1;
+	zvel = 1.2;
+	z += 1;
+	xvel += random_range(-0.75, 0.75);
+	yvel += random_range(-0.75, 0.75);
+}

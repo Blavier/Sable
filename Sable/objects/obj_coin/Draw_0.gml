@@ -5,8 +5,9 @@ var _squash_factor = 0.10; // Adjust this value to control the intensity of squa
 var _image_yscale = 1 + (abs(zvel) * _squash_factor);
 var _image_xscale = 1 - (abs(zvel) * _squash_factor);
 
-var _shadow_scale = max(0.1, 1 - (z / 150)); 
-draw_sprite_ext(spr_coin, 0, x, y+1, _shadow_scale, _shadow_scale, 0, c_black, 0.15);
+
+var _shadow_scale = max(0.1, 0.5 - (z / 150)); 
+draw_sprite_ext(sShadow, 0, x, y+2, _shadow_scale, _shadow_scale, 0, c_black, 0.5);
 
 image_xscale = _image_xscale;
 image_yscale = _image_yscale;

@@ -10,7 +10,7 @@ gametime = 0;
 if room == Clouds
 	area_gravity = 0.02;
 else
-	area_gravity = 0.05;
+	area_gravity = 0.04;
 
 // Set up the grid
 width_ = room_width div CELL_WIDTH;

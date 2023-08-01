@@ -10,8 +10,8 @@ else
 	// Magnet to player
 	if (distance_to_object(Player) < 34)
 	{
-		xvel += lengthdir_x(0.125, point_direction(x,y,Player.x,Player.y))
-		yvel += lengthdir_y(0.125, point_direction(x,y,Player.x,Player.y))
+		//xvel += lengthdir_x(0.125, point_direction(x,y,Player.x,Player.y))
+		//yvel += lengthdir_y(0.125, point_direction(x,y,Player.x,Player.y))
 	}
 	
 	// Slowing forces
@@ -37,6 +37,11 @@ else
 	
 		// Bounce off ground
 		zvel *= -elasticity;
+		
+		if (abs(zvel) > 0.1)
+		{
+			audio_play_sound(snd_coindrop,5,false,0.4,0,1);
+		}
 	
 		movelock_time = floor(zvel*4);
 	}

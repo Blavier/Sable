@@ -25,8 +25,18 @@ if instance_exists(obj_textbox) {
 	}
 }
 
+if (is_dead)
+{
+	shader_set(sh_white);
+}
+else
+{
+	if (hitflash_time > 0)
+	{
+		shader_set(sh_white);
+	}
+}
 
-if (hitflash_time > 0) shader_set(sh_white);
 y -= z;
 {
 	draw_sprite_ext(sprite_index, image_index, x, y-_yoffset, image_xscale*_image_xscale, _image_yscale, 0, c_white, 1);

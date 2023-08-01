@@ -2,10 +2,10 @@
 
 #macro view view_camera[0]
 
-view_width = 1920/4;
-view_height = 1080/4;
+view_width = 1920/3;
+view_height = 1080/3;
 
-window_scale = 4;
+window_scale = 3;
 
 screen_shake = 0;
 

@@ -12,6 +12,8 @@ zvel = 0;
 lastdirx = 1;
 lastdiry = 0;
 
+is_dead = 0;
+
 jump_time = 0;
 jumpingstate = 0;
 _onfloor = 0;
@@ -28,6 +30,7 @@ maxhitpoints = hitpoints;
 hitflash_time = 0;
 movelock_time = 0;
 
+stopsoundplayed = false;
 
 anim = anim_idle;
 old_anim = anim_idle;
